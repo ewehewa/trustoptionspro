@@ -224,6 +224,7 @@ class AuthController extends Controller
         session()->forget('pending_email_verification');
 
         Auth::login($user); // Auto-login
+        Mail::to($user->email)->send(new UserRegistered($user));
 
         return response()->json([
             'success' => true,
