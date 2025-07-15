@@ -2,7 +2,7 @@
 <div class="card signup-card p-4">
   <div class="d-flex justify-content-center py-2">
     <a href="{{ url('/') }}" class="text-decoration-none">
-      <img src="{{ asset('assets/img/thelogo.png') }}" width="140" height="40">
+      <img src="{{ asset('assets/img/appicon.png') }}" width="140" height="40">
     </a> 
   </div>
   <h5 class="text-center text-secondary mb-4">Reset Your Password</h5>

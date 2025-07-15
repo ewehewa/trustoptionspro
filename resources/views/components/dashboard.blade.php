@@ -104,16 +104,16 @@
                             <i class="fas fa-bars"></i>
                         </button>
                         
-                        <div class="language-selector">
-                            <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
-                                <div class="flag-us me-2"></div>
-                                <span class="fw-bold">EN</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">🇺🇸 English</a></li>
-                                <li><a class="dropdown-item" href="#">🇪🇸 Español</a></li>
-                            </ul>
-                        </div>
+                        <!--<div class="language-selector">-->
+                        <!--    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">-->
+                        <!--        <div class="flag-us me-2"></div>-->
+                        <!--        <span class="fw-bold">EN</span>-->
+                        <!--    </button>-->
+                        <!--    <ul class="dropdown-menu">-->
+                        <!--        <li><a class="dropdown-item" href="#">ðŸ‡ºðŸ‡¸ English</a></li>-->
+                        <!--        <li><a class="dropdown-item" href="#">ðŸ‡ªðŸ‡¸ EspaÃ±ol</a></li>-->
+                        <!--    </ul>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="col-6 text-end">

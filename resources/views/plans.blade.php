@@ -51,7 +51,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline active">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline active">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline active">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline active">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +243,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline active">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline active">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline active">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline active">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -387,7 +387,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -435,7 +435,7 @@
                                         </ul>
                                     </div>
                                     <div class="pricing__item-bottom">
-                                        <a href="register.html" class="trk-btn trk-btn--outline">Choose Plan</a>
+                                        <a href="{{ route('dashboard') }}" class="trk-btn trk-btn--outline">Choose Plan</a>
                                     </div>
                                 </div>
                             </div>

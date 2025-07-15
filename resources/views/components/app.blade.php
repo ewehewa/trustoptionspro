@@ -23,9 +23,9 @@
     <meta property="og:description"
         content="Welcome to TrustNetX,TrustNetX is a fully licensed and regulated online with an online trading platform that empowers you to invest across global financial markets." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="{{ asset('assets/img/iconn.jpg') }}" />
+    <meta property="og:image" content="{{ asset('assets/img/favicon.jpg') }}" />
 
-    <link rel="shortcut icon" href="{{ asset('assets/img/iconn.jpg') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.jpg') }}" type="image/x-icon" />
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/aos.css" />
@@ -224,7 +224,7 @@ window.smartsupp||(function(d) {
                 <div class="header-wrapper">
                     <div class="logo">
                         <a href="{{ url("/") }}">
-                            <img class="logo dark img-fluid" src="{{ asset('assets/img/thelogo.png') }}" alt="logo" />
+                            <img class="logo dark img-fluid" src="{{ asset('assets/img/applogo.png') }}" alt="logo" />
                         </a>
                     </div>
                     <div class="menu-area">
