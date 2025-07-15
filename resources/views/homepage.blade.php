@@ -1,7 +1,7 @@
 <x-app>
     <!-- ===============>> Preloader start here <<================= -->
     <div class="preloader">
-        <img style="height: 50px;" src="assets/dashboard/images/preloader.png" alt="preloader icon" />
+        <img style="height: 50px;" src="{{ asset('assets/img/appicon.png') }}" alt="preloader icon" />
     </div>
     <section class="banner banner--style1 hero-wrapper">
         <div class="container">
