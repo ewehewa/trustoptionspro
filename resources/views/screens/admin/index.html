@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustNetX - Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span>TrustNetX</span>
+            </div>
+            
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <div class="user-profile" data-bs-toggle="dropdown">
+                    <div class="user-avatar">
+                        JD
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">John Doe</div>
+                        <div class="user-role">Administrator</div>
+                    </div>
+                    <i class="fas fa-chevron-down ms-2"></i>
+                </div>
+                
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-menu">
+            <a href="#" class="menu-item active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="menu-item-text">Dashboard</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span class="menu-item-text">All Users</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-arrow-down"></i>
+                <span class="menu-item-text">Deposits</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-arrow-up"></i>
+                <span class="menu-item-text">Withdrawals</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-pie"></i>
+                <span class="menu-item-text">Investment Plans</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-wallet"></i>
+                <span class="menu-item-text">Account Balances</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-envelope"></i>
+                <span class="menu-item-text">Send Email</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-cogs"></i>
+                <span class="menu-item-text">Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content" id="mainContent">
+        <div class="container-fluid">
+            <h1 class="dashboard-title">Admin Dashboard</h1>
+            
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stats-card primary">
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stats-value">1,247</div>
+                        <div class="stats-label">Total Users</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stats-card success">
+                        <div class="icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stats-value">$125,430</div>
+                        <div class="stats-label">Total Deposits</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stats-card danger">
+                        <div class="icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stats-value">$8,940</div>
+                        <div class="stats-label">Total Withdrawals</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stats-card info">
+                        <div class="icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stats-value">12</div>
+                        <div class="stats-label">Pending Deposits</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stats-card info">
+                        <div class="icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="stats-value">8</div>
+                        <div class="stats-label">Pending Withdrawals</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stats-card success">
+                        <div class="icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stats-value">23</div>
+                        <div class="stats-label">Active Plans</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

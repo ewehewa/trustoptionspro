@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustNetX - All Users</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #7c3aed;
+            --primary-dark: #6d28d9;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --sidebar-bg: #1e1b4b;
+            --sidebar-hover: #312e81;
+            --text-muted: #94a3b8;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .sidebar-toggle:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f59e0b, #ef4444);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-info {
+            color: white;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+            overflow-y: auto;
+            padding-top: var(--header-height);
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background-color: var(--sidebar-hover);
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+
+        .menu-item.active {
+            background-color: var(--sidebar-hover);
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+
+        .menu-item-text {
+            font-weight: 500;
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-top: var(--header-height);
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Page Title */
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 30px;
+        }
+
+        /* Table Card */
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 12px 8px 35px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        .filter-btn, .add-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-btn:hover, .add-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .filter-btn {
+            background: #64748b;
+        }
+
+        .filter-btn:hover {
+            background: #475569;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        /* Action Buttons */
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin: 0 2px;
+        }
+
+        .action-btn:hover {
+            background-color: #f1f5f9;
+        }
+
+        .action-btn.edit {
+            color: var(--info-color);
+        }
+
+        .action-btn.delete {
+            color: var(--danger-color);
+        }
+
+        .action-btn.view {
+            color: var(--success-color);
+        }
+
+        /* User Avatar in Table */
+        .user-table-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 15px;
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .sidebar {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .table-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .table-actions {
+                justify-content: space-between;
+            }
+
+            .table-responsive {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .sidebar.desktop-open {
+                transform: translateX(0);
+            }
+            
+            .main-content.desktop-sidebar-open {
+                margin-left: var(--sidebar-width);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span>TrustNetX</span>
+            </div>
+            
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <div class="user-profile" data-bs-toggle="dropdown">
+                    <div class="user-avatar">
+                        JD
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">John Doe</div>
+                        <div class="user-role">Administrator</div>
+                    </div>
+                    <i class="fas fa-chevron-down ms-2"></i>
+                </div>
+                
+                <!-- User Dropdown Menu -->
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-menu">
+            <a href="#" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="menu-item-text">Dashboard</span>
+            </a>
+            <a href="#" class="menu-item active">
+                <i class="fas fa-users"></i>
+                <span class="menu-item-text">All Users</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-arrow-down"></i>
+                <span class="menu-item-text">Deposits</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-arrow-up"></i>
+                <span class="menu-item-text">Withdrawals</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-pie"></i>
+                <span class="menu-item-text">Investment Plans</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-wallet"></i>
+                <span class="menu-item-text">Account Balances</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-envelope"></i>
+                <span class="menu-item-text">Send Email</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-cogs"></i>
+                <span class="menu-item-text">Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+        <div class="container-fluid">
+            <h1 class="page-title">All Users</h1>
+            
+            <!-- Users Table -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h3 class="table-title">User Management</h3>
+                    <div class="table-actions">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search users..." id="searchInput">
+                        </div>
+                        <button class="filter-btn">
+                            <i class="fas fa-filter me-1"></i>
+                            Filter
+                        </button>
+                        <button class="add-btn">
+                            <i class="fas fa-plus me-1"></i>
+                            Add User
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-table-avatar">JS</div>
+                                        <div class="ms-2">
+                                            <div class="fw-bold">John Smith</div>
+                                            <div class="text-muted small">ID: #USR001</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>john.smith@email.com</td>
+                                <td>+1-555-0123</td>
+                                <td class="fw-bold">$2,450.00</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Jan 15, 2024</td>
+                                <td>
+                                    <button class="action-btn view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit" title="Edit User">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete" title="Delete User">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-table-avatar">SJ</div>
+                                        <div class="ms-2">
+                                            <div class="fw-bold">Sarah Johnson</div>
+                                            <div class="text-muted small">ID: #USR002</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>sarah.johnson@email.com</td>
+                                <td>+1-555-0456</td>
+                                <td class="fw-bold">$8,750.00</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Feb 03, 2024</td>
+                                <td>
+                                    <button class="action-btn view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit" title="Edit User">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete" title="Delete User">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-table-avatar">MD</div>
+                                        <div class="ms-2">
+                                            <div class="fw-bold">Mike Davis</div>
+                                            <div class="text-muted small">ID: #USR003</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>mike.davis@email.com</td>
+                                <td>+1-555-0789</td>
+                                <td class="fw-bold">$1,200.00</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>Mar 12, 2024</td>
+                                <td>
+                                    <button class="action-btn view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit" title="Edit User">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete" title="Delete User">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-table-avatar">LW</div>
+                                        <div class="ms-2">
+                                            <div class="fw-bold">Lisa Wilson</div>
+                                            <div class="text-muted small">ID: #USR004</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>lisa.wilson@email.com</td>
+                                <td>+1-555-0234</td>
+                                <td class="fw-bold">$5,320.00</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Apr 08, 2024</td>
+                                <td>
+                                    <button class="action-btn view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit" title="Edit User">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete" title="Delete User">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-table-avatar">TB</div>
+                                        <div class="ms-2">
+                                            <div class="fw-bold">Tom Brown</div>
+                                            <div class="text-muted small">ID: #USR005</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>tom.brown@email.com</td>
+                                <td>+1-555-0567</td>
+                                <td class="fw-bold">$0.00</td>
+                                <td><span class="status-badge status-inactive">Inactive</span></td>
+                                <td>May 20, 2024</td>
+                                <td>
+                                    <button class="action-btn view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit" title="Edit User">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete" title="Delete User">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-3">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.getElementById('mainContent');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('show');
+            sidebarOverlay.classList.toggle('show');
+            
+            // For desktop, also toggle the main content margin
+            if (window.innerWidth >= 1200) {
+                sidebar.classList.toggle('desktop-open');
+                mainContent.classList.toggle('desktop-sidebar-open');
+            }
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 1200) {
+                sidebar.classList.remove('desktop-open');
+                mainContent.classList.remove('desktop-sidebar-open');
+            }
+        });
+
+        // Active Menu Item Handling
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                menuItems.forEach(menuItem => {
+                    menuItem.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+            });
+        });
+
+        // Auto-hide sidebar on mobile after clicking menu item
+        if (window.innerWidth < 768) {
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                });
+            });
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const tableBody = document.getElementById('usersTableBody');
+        const rows = tableBody.querySelectorAll('tr');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Action button handlers
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.classList.contains('view') ? 'view' : 
+                              this.classList.contains('edit') ? 'edit' : 'delete';
+                const row = this.closest('tr');
+                const userName = row.querySelector('.fw-bold').textContent;
+                
+                if (action === 'delete') {
+                    if (confirm(`Are you sure you want to delete user ${userName}?`)) {
+                        row.remove();
+                    }
+                } else {
+                    alert(`${action.charAt(0).toUpperCase() + action.slice(1)} action for user: ${userName}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

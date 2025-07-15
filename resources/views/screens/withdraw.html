@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - Trading Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h5 class="sidebar-title">Menu</h5>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <a href="dashboard.html" class="sidebar-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="investments.html" class="sidebar-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Investments</span>
+                </a>
+                <a href="deposits.html" class="sidebar-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Deposits</span>
+                </a>
+                <a href="withdraw.html" class="sidebar-item active">
+                    <i class="fas fa-minus-circle"></i>
+                    <span>Withdraw</span>
+                </a>
+                <a href="transactions.html" class="sidebar-item">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </a>
+                <a href="referral.html" class="sidebar-item">
+                    <i class="fas fa-users"></i>
+                    <span>Referral</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Account</div>
+                <a href="profile.html" class="sidebar-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="#" class="sidebar-item" onclick="alert('Logout functionality')">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Header -->
+    <header class="top-header">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center py-3">
+                <div class="col-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Hamburger Menu -->
+                        <button class="hamburger-btn" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <div class="language-selector">
+                            <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                                <div class="flag-us me-2"></div>
+                                <span class="fw-bold">EN</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">🇺🇸 English</a></li>
+                                <li><a class="dropdown-item" href="#">🇪🇸 Español</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 text-end">
+                    <div class="d-none d-md-block">
+                        <!-- Profile Dropdown -->
+                        <div class="profile-dropdown">
+                            <button class="profile-btn" id="profileToggle">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="profile-name">Hshsh</span>
+                                <i class="fas fa-chevron-down profile-arrow"></i>
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div class="profile-menu" id="profileMenu">
+                                <div class="profile-menu-item">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>My Profile</span>
+                                </div>
+                                <div class="profile-menu-divider"></div>
+                                <div class="profile-menu-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-section">
+        <div class="container-fluid px-4">
+            <h1 class="page-title">Withdraw Funds</h1>
+
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <!-- Withdrawal Form -->
+                    <div class="content-card">
+                        <form id="withdrawForm">
+                            <!-- Available Balance -->
+                            <div style="background: #1a1d29; border: 1px solid #374151; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                                <div style="color: #9ca3af; font-size: 12px; margin-bottom: 8px;">AVAILABLE BALANCE</div>
+                                <div style="color: #ffffff; font-size: 24px; font-weight: 700;">$0.00</div>
+                            </div>
+
+                            <!-- Withdrawal Amount -->
+                            <div class="form-group">
+                                <label class="form-label">Withdrawal Amount (USD)</label>
+                                <input type="number" class="form-input" id="withdrawAmount" placeholder="Enter amount to withdraw" min="50" step="0.01">
+                                <small style="color: #9ca3af; font-size: 12px;">Minimum withdrawal: $50</small>
+                            </div>
+
+                            <!-- Withdrawal Method -->
+                            <div class="form-group">
+                                <label class="form-label">Select Withdrawal Method</label>
+                                <div class="payment-methods">
+                                    <div class="payment-method" data-method="usdt-erc20">
+                                        <div class="payment-icon">₮</div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">USDT (ERC20)</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Fee: 2 USDT</div>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method" data-method="usdt-trc20">
+                                        <div class="payment-icon">₮</div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">USDT (TRC20)</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Fee: 1 USDT</div>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method" data-method="btc">
+                                        <div class="payment-icon">₿</div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">Bitcoin (BTC)</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Fee: 0.0005 BTC</div>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method" data-method="bank">
+                                        <div class="payment-icon"><i class="fas fa-university"></i></div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">Bank Transfer</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Fee: $5</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Wallet Address / Bank Details -->
+                            <div class="form-group" id="walletAddressGroup">
+                                <label class="form-label">Wallet Address</label>
+                                <input type="text" class="form-input" id="walletAddress" placeholder="Enter your wallet address">
+                            </div>
+
+                            <div class="form-group" id="bankDetailsGroup" style="display: none;">
+                                <label class="form-label">Bank Account Details</label>
+                                <input type="text" class="form-input" id="bankName" placeholder="Bank Name" style="margin-bottom: 10px;">
+                                <input type="text" class="form-input" id="accountNumber" placeholder="Account Number" style="margin-bottom: 10px;">
+                                <input type="text" class="form-input" id="routingNumber" placeholder="Routing Number">
+                            </div>
+
+                            <!-- Two-Factor Authentication -->
+                            <div class="form-group">
+                                <label class="form-label">Two-Factor Authentication Code</label>
+                                <input type="text" class="form-input" id="twoFactorCode" placeholder="Enter 6-digit code">
+                                <small style="color: #9ca3af; font-size: 12px;">Enter the code from your authenticator app</small>
+                            </div>
+
+                            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">
+                                Submit Withdrawal Request
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12">
+                    <!-- Withdrawal Summary -->
+                    <div class="deposit-summary">
+                        <div class="deposit-total">
+                            <div class="deposit-total-label">WITHDRAWAL AMOUNT</div>
+                            <div class="deposit-total-value" id="totalWithdraw">$0.00</div>
+                        </div>
+                        
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #374151;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #9ca3af; font-size: 14px;">Processing Fee:</span>
+                                <span style="color: #ffffff; font-size: 14px;" id="processingFee">$0.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+                                <span style="color: #9ca3af; font-size: 14px;">You'll Receive:</span>
+                                <span style="color: #10b981; font-size: 16px; font-weight: 600;" id="netAmount">$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="transactions.html" class="link-text">View withdrawal history</a>
+                        </div>
+                    </div>
+
+                    <!-- Withdrawal Limits -->
+                    <div class="content-card" style="margin-top: 20px;">
+                        <h3>Withdrawal Limits</h3>
+                        <div style="color: #9ca3af; font-size: 14px; line-height: 1.6;">
+                            <p><strong>Daily Limit:</strong> $10,000</p>
+                            <p><strong>Weekly Limit:</strong> $50,000</p>
+                            <p><strong>Monthly Limit:</strong> $200,000</p>
+                            <p style="margin-bottom: 0;"><strong>Processing Time:</strong> 24-48 hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // Withdrawal form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const withdrawAmount = document.getElementById('withdrawAmount');
+            const totalWithdraw = document.getElementById('totalWithdraw');
+            const processingFee = document.getElementById('processingFee');
+            const netAmount = document.getElementById('netAmount');
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            const walletAddressGroup = document.getElementById('walletAddressGroup');
+            const bankDetailsGroup = document.getElementById('bankDetailsGroup');
+            
+            let selectedMethod = null;
+            let feeAmount = 0;
+            
+            // Fee structure
+            const fees = {
+                'usdt-erc20': 2,
+                'usdt-trc20': 1,
+                'btc': 25, // Approximate USD value
+                'bank': 5
+            };
+            
+            // Update withdrawal summary
+            function updateSummary() {
+                const amount = parseFloat(withdrawAmount.value) || 0;
+                totalWithdraw.textContent = `$${amount.toFixed(2)}`;
+                
+                if (selectedMethod && amount > 0) {
+                    feeAmount = fees[selectedMethod] || 0;
+                    processingFee.textContent = `$${feeAmount.toFixed(2)}`;
+                    netAmount.textContent = `$${Math.max(0, amount - feeAmount).toFixed(2)}`;
+                } else {
+                    processingFee.textContent = '$0.00';
+                    netAmount.textContent = '$0.00';
+                }
+            }
+            
+            withdrawAmount.addEventListener('input', updateSummary);
+            
+            // Payment method selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedMethod = this.dataset.method;
+                    
+                    // Show/hide appropriate input fields
+                    if (selectedMethod === 'bank') {
+                        walletAddressGroup.style.display = 'none';
+                        bankDetailsGroup.style.display = 'block';
+                    } else {
+                        walletAddressGroup.style.display = 'block';
+                        bankDetailsGroup.style.display = 'none';
+                    }
+                    
+                    updateSummary();
+                });
+            });
+            
+            // Form submission
+            document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(withdrawAmount.value);
+                
+                if (!amount || amount < 50) {
+                    alert('Minimum withdrawal amount is $50');
+                    return;
+                }
+                
+                if (!selectedMethod) {
+                    alert('Please select a withdrawal method');
+                    return;
+                }
+                
+                const twoFactorCode = document.getElementById('twoFactorCode').value;
+                if (!twoFactorCode || twoFactorCode.length !== 6) {
+                    alert('Please enter a valid 6-digit authentication code');
+                    return;
+                }
+                
+                alert(`Withdrawal request submitted for $${amount.toFixed(2)} via ${selectedMethod}. You will receive $${(amount - feeAmount).toFixed(2)} after fees.`);
+            });
+        });
+    </script>
+</body>
+</html>

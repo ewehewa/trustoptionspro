@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investments - Trading Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h5 class="sidebar-title">Menu</h5>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <a href="dashboard.html" class="sidebar-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="investments.html" class="sidebar-item active">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Investments</span>
+                </a>
+                <a href="deposits.html" class="sidebar-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Deposits</span>
+                </a>
+                <a href="withdraw.html" class="sidebar-item">
+                    <i class="fas fa-minus-circle"></i>
+                    <span>Withdraw</span>
+                </a>
+                <a href="transactions.html" class="sidebar-item">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </a>
+                <a href="referral.html" class="sidebar-item">
+                    <i class="fas fa-users"></i>
+                    <span>Referral</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Account</div>
+                <a href="profile.html" class="sidebar-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="#" class="sidebar-item" onclick="alert('Logout functionality')">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Header -->
+    <header class="top-header">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center py-3">
+                <div class="col-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Hamburger Menu -->
+                        <button class="hamburger-btn" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <div class="language-selector">
+                            <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                                <div class="flag-us me-2"></div>
+                                <span class="fw-bold">EN</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">🇺🇸 English</a></li>
+                                <li><a class="dropdown-item" href="#">🇪🇸 Español</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 text-end">
+                    <div class="d-none d-md-block">
+                        <!-- Profile Dropdown -->
+                        <div class="profile-dropdown">
+                            <button class="profile-btn" id="profileToggle">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="profile-name">Hshsh</span>
+                                <i class="fas fa-chevron-down profile-arrow"></i>
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div class="profile-menu" id="profileMenu">
+                                <div class="profile-menu-item">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>My Profile</span>
+                                </div>
+                                <div class="profile-menu-divider"></div>
+                                <div class="profile-menu-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-section">
+        <div class="container-fluid px-4">
+            <!-- Earnings Notification -->
+            <div class="earnings-notification">
+                <div class="earnings-icon">₿</div>
+                <div class="earnings-text">
+                    <strong>Earning:</strong> Ahmed from AUSTRALIA has just withdrawn <strong>$8437</strong>
+                </div>
+            </div>
+
+            <h1 class="page-title">My Investment plans (All)</h1>
+
+            <!-- Investment Plans Content -->
+            <div class="content-card">
+                <div class="empty-state" style="padding: 60px 20px;">
+                    <i class="fas fa-chart-pie" style="font-size: 48px; color: #6b7280; margin-bottom: 20px;"></i>
+                    <p style="font-size: 16px; margin-bottom: 30px;">You do not have an investment plan at the moment or no value match your query.</p>
+                    <button class="btn-white" onclick="showInvestmentPlans()">Buy a plan</button>
+                </div>
+            </div>
+
+            <!-- Available Investment Plans (Hidden by default) -->
+            <div id="investmentPlans" style="display: none;">
+                <h3 style="color: #ffffff; margin: 40px 0 20px;">Available Investment Plans</h3>
+                
+                <div class="investment-plans">
+                    <div class="plan-card">
+                        <div class="plan-name">Starter Plan</div>
+                        <div class="plan-return">5% - 8%</div>
+                        <p style="color: #9ca3af; margin-bottom: 20px;">Daily Returns</p>
+                        <ul class="plan-features">
+                            <li>Minimum: $100</li>
+                            <li>Maximum: $999</li>
+                            <li>Duration: 30 days</li>
+                            <li>24/7 Support</li>
+                            <li>Instant Withdrawal</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%;">Invest Now</button>
+                    </div>
+
+                    <div class="plan-card">
+                        <div class="plan-name">Professional Plan</div>
+                        <div class="plan-return">10% - 15%</div>
+                        <p style="color: #9ca3af; margin-bottom: 20px;">Daily Returns</p>
+                        <ul class="plan-features">
+                            <li>Minimum: $1,000</li>
+                            <li>Maximum: $4,999</li>
+                            <li>Duration: 45 days</li>
+                            <li>Priority Support</li>
+                            <li>Instant Withdrawal</li>
+                            <li>Bonus Referral Commission</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%;">Invest Now</button>
+                    </div>
+
+                    <div class="plan-card">
+                        <div class="plan-name">Premium Plan</div>
+                        <div class="plan-return">18% - 25%</div>
+                        <p style="color: #9ca3af; margin-bottom: 20px;">Daily Returns</p>
+                        <ul class="plan-features">
+                            <li>Minimum: $5,000</li>
+                            <li>Maximum: $19,999</li>
+                            <li>Duration: 60 days</li>
+                            <li>VIP Support</li>
+                            <li>Instant Withdrawal</li>
+                            <li>Premium Referral Commission</li>
+                            <li>Personal Account Manager</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%;">Invest Now</button>
+                    </div>
+
+                    <div class="plan-card">
+                        <div class="plan-name">Elite Plan</div>
+                        <div class="plan-return">30% - 40%</div>
+                        <p style="color: #9ca3af; margin-bottom: 20px;">Daily Returns</p>
+                        <ul class="plan-features">
+                            <li>Minimum: $20,000</li>
+                            <li>Maximum: Unlimited</li>
+                            <li>Duration: 90 days</li>
+                            <li>Elite Support</li>
+                            <li>Instant Withdrawal</li>
+                            <li>Maximum Referral Commission</li>
+                            <li>Dedicated Account Manager</li>
+                            <li>Exclusive Market Insights</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%;">Invest Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        function showInvestmentPlans() {
+            document.getElementById('investmentPlans').style.display = 'block';
+            document.querySelector('.content-card').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

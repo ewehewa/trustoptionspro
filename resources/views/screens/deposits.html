@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposits - Trading Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h5 class="sidebar-title">Menu</h5>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <a href="dashboard.html" class="sidebar-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="investments.html" class="sidebar-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Investments</span>
+                </a>
+                <a href="deposits.html" class="sidebar-item active">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Deposits</span>
+                </a>
+                <a href="withdraw.html" class="sidebar-item">
+                    <i class="fas fa-minus-circle"></i>
+                    <span>Withdraw</span>
+                </a>
+                <a href="transactions.html" class="sidebar-item">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </a>
+                <a href="referral.html" class="sidebar-item">
+                    <i class="fas fa-users"></i>
+                    <span>Referral</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Account</div>
+                <a href="profile.html" class="sidebar-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="#" class="sidebar-item" onclick="alert('Logout functionality')">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Header -->
+    <header class="top-header">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center py-3">
+                <div class="col-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Hamburger Menu -->
+                        <button class="hamburger-btn" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <div class="language-selector">
+                            <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                                <div class="flag-us me-2"></div>
+                                <span class="fw-bold">EN</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">🇺🇸 English</a></li>
+                                <li><a class="dropdown-item" href="#">🇪🇸 Español</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 text-end">
+                    <div class="d-none d-md-block">
+                        <!-- Profile Dropdown -->
+                        <div class="profile-dropdown">
+                            <button class="profile-btn" id="profileToggle">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="profile-name">Hshsh</span>
+                                <i class="fas fa-chevron-down profile-arrow"></i>
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div class="profile-menu" id="profileMenu">
+                                <div class="profile-menu-item">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>My Profile</span>
+                                </div>
+                                <div class="profile-menu-divider"></div>
+                                <div class="profile-menu-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-section">
+        <div class="container-fluid px-4">
+            <!-- Earnings Notification -->
+            <div class="earnings-notification">
+                <div class="earnings-icon">₿</div>
+                <div class="earnings-text">
+                    <strong>Earning:</strong> Darren from ZIMBABWE has just withdrawn <strong>$4035</strong>
+                </div>
+            </div>
+
+            <h1 class="page-title">Fund your Account</h1>
+
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <!-- Deposit Form -->
+                    <div class="content-card">
+                        <form id="depositForm">
+                            <!-- Amount Input -->
+                            <div class="form-group">
+                                <label class="form-label">Enter Amount(USD)</label>
+                                <input type="number" class="form-input" id="depositAmount" placeholder="Enter Amount" min="1" step="0.01">
+                            </div>
+
+                            <!-- Currency Converter -->
+                            <div class="form-group">
+                                <label class="form-label">Convert Currency</label>
+                                <select class="form-select" id="currencySelect">
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="BTC">BTC - Bitcoin</option>
+                                    <option value="ETH">ETH - Ethereum</option>
+                                </select>
+                            </div>
+
+                            <!-- Payment Methods -->
+                            <div class="form-group">
+                                <label class="form-label">Choose payment method from the list below</label>
+                                <div class="payment-methods">
+                                    <div class="payment-method" data-method="usdt-erc20">
+                                        <div class="payment-icon">₮</div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">USDT (ERC20)</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Ethereum Network</div>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method" data-method="usdt-trc20">
+                                        <div class="payment-icon">₮</div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">USDT (TRC20)</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Tron Network</div>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method" data-method="btc">
+                                        <div class="payment-icon">₿</div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">Bitcoin (BTC)</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Bitcoin Network</div>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method" data-method="eth">
+                                        <div class="payment-icon">Ξ</div>
+                                        <div>
+                                            <div style="color: #ffffff; font-weight: 600;">Ethereum (ETH)</div>
+                                            <div style="color: #9ca3af; font-size: 12px;">Ethereum Network</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">
+                                Proceed to Payment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12">
+                    <!-- Deposit Summary -->
+                    <div class="deposit-summary">
+                        <div class="deposit-total">
+                            <div class="deposit-total-label">TOTAL DEPOSIT</div>
+                            <div class="deposit-total-value" id="totalDeposit">$0.00</div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="transactions.html" class="link-text">View deposit history</a>
+                        </div>
+                    </div>
+
+                    <!-- Recent Deposits -->
+                    <div class="content-card" style="margin-top: 20px;">
+                        <h3>Recent Deposits</h3>
+                        <div class="empty-state">
+                            <p>No recent deposits found</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // Deposit form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const depositAmount = document.getElementById('depositAmount');
+            const totalDeposit = document.getElementById('totalDeposit');
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            
+            // Update total deposit display
+            depositAmount.addEventListener('input', function() {
+                const amount = parseFloat(this.value) || 0;
+                totalDeposit.textContent = `$${amount.toFixed(2)}`;
+            });
+            
+            // Payment method selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Form submission
+            document.getElementById('depositForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = depositAmount.value;
+                const selectedMethod = document.querySelector('.payment-method.selected');
+                
+                if (!amount || amount <= 0) {
+                    alert('Please enter a valid amount');
+                    return;
+                }
+                
+                if (!selectedMethod) {
+                    alert('Please select a payment method');
+                    return;
+                }
+                
+                alert(`Proceeding with $${amount} deposit via ${selectedMethod.querySelector('div > div').textContent}`);
+            });
+        });
+    </script>
+</body>
+</html>
