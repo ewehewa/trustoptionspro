@@ -459,20 +459,21 @@
         <div class="container">
             <div class="cta__wrapper">
                 <div class="cta__newsletter justify-content-center">
-                    <div class="cta__newsletter-inner cta__newsletter-inner--style2" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="cta__newsletter-inner cta__newsletter-inner--style2" data-aos="fade-up"
+                        data-aos-duration="1000">
                         <div class="cta__thumb">
                             <img src="assets/images/cta/3.png" alt="cta-thumb">
                         </div>
                         <div class="cta__subscribe">
                             <h2 class="mb-0 text-white">Start trading in less than 5 minutes</h2>
                             <p class="text-white">Trade over 1,000+ assets today</p>
-                            <form class="cta-form cta-form--style2 form-subscribe" action="https://beechainoptions.net.com/register">
+                            <div class="cta-form cta-form--style2 form-subscribe">
                                 <div class="cta-form__inner d-sm-flex align-items-center">
-                                    <input type="email" name="email" class="form-control form-control--style2 mb-3 mb-sm-0"
-                                        placeholder="Email Address">
-                                    <button class="trk-btn trk-btn--large trk-btn--secondary2" type="submit">Join now</button>
+                                    <a href="{{ url('/register') }}">
+                                        <button class="trk-btn trk-btn--large trk-btn--secondary2" type="submit">Join now</button>
+                                    </a>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
