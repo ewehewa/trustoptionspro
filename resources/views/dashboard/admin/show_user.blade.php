@@ -151,6 +151,36 @@
       </div>
     </div>
 
+    <!-- COPIED TRADERS HISTORY -->
+  <div class="card-box">
+    <h5>Copied Traders History</h5>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Trader</th>
+            <th>Copied Since</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse($user->copiedTraders->sortByDesc('created_at') as $copy)
+            <tr>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $copy->trader->name ?? 'N/A' }}</td>
+              <td>{{ $copy->created_at->format('d M Y, h:i A') }}</td>
+            </tr>
+          @empty
+            <tr><td colspan="3">No copied traders found.</td></tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
     <!-- WITHDRAWAL HISTORY -->
     <div class="card-box">
       <h5>Withdrawal History</h5>

@@ -46,6 +46,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Profit::class);
     }
+    
+    public function copiedTraders()
+    {
+        return $this->hasMany(CopiedTrader::class);
+    }
+
+
 
     protected $hidden = [
         'password',

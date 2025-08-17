@@ -46,22 +46,27 @@ class DashboardController extends Controller
     }
 
     public function showUser($id)
-    {
-        $user = User::with([
-            'deposits' => function ($q) {
-                $q->latest();
-            },
-            'withdrawals' => function ($q) {
-                $q->latest();
-            },
-            'investments' => function ($q) {
-                $q->latest();
-            },
-            'investments.plan'
-        ])->findOrFail($id);
+{
+    $user = User::with([
+        'deposits' => function ($q) {
+            $q->latest();
+        },
+        'withdrawals' => function ($q) {
+            $q->latest();
+        },
+        'investments' => function ($q) {
+            $q->latest();
+        },
+        'investments.plan',
+        'copiedTraders' => function ($q) {   // <-- add this
+            $q->latest();
+        },
+        'copiedTraders.trader', // eager load trader details
+    ])->findOrFail($id);
 
-        return view('dashboard.admin.show_user', compact('user'));
-    }
+    return view('dashboard.admin.show_user', compact('user'));
+}
+
 
     public function deleteUser($id)
     {
