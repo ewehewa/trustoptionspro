@@ -9,6 +9,9 @@ use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\InvestmentPlanController;
+use App\Http\Controllers\Admin\TraderController;
+use App\Http\Controllers\CopiedTraderController;
+use App\Http\Controllers\TraderController as ControllersTraderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -62,6 +65,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/investments', [InvestmentController::class, 'showInvestments'])->name('show.investment');
     Route::get('/user/plans', [InvestmentController::class, 'showPlans'])->name('show.plans');
     Route::post('/invest', [InvestmentController::class, 'invest'])->name('user.invest');
+
+    Route::get('/user/traders', [ControllersTraderController::class, 'index'])->name('user.traders.index');
+    Route::post('user/copy-trader', [CopiedTraderController::class, 'store'])->name('copy.trader');
+    Route::delete('user/copy-trader/{id}', [CopiedTraderController::class, 'destroy'])->name('uncopy.trader');
+    Route::get('user/copied-traders', [CopiedTraderController::class, 'history'])->name('user.copied.traders');
 });
 
 //Admin Routes
@@ -102,6 +110,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/wallets/{id}', [AdminDashboardController::class, 'deleteWallet'])->name('wallets.destroy');
 
         Route::get('/withdrawals', [WithdrawalController::class, 'showWithdrawalHistory'])->name('withdrawals');
+
+        //traders
+        Route::get('/traders/create', [TraderController::class, 'showTradersForm'])->name('traders.create');
+        Route::post('/traders', [TraderController::class, 'addTrader'])->name('traders.store');
+        Route::get('/traders', [TraderController::class, 'fetchTraders'])->name('traders.index');
+        Route::delete('/traders/{id}', [TraderController::class, 'deleteTrader'])->name('traders.destroy');
     });
 });
 

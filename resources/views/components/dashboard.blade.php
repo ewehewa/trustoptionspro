@@ -67,6 +67,10 @@
                     <i class="fas fa-history"></i>
                     <span>Transactions</span>
                 </a>
+                <a href="{{ route('user.traders.index') }}" class="sidebar-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Copy Trading</span>
+                </a>
                 {{-- <a href="#" class="sidebar-item">
                     <i class="fas fa-users"></i>
                     <span>Referral</span>

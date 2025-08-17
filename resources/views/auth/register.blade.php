@@ -309,9 +309,15 @@
         toastr.success(data.message);
         window.location.href = data.redirect;
       } else if (res.status === 422) {
-        Object.values(data.errors).forEach(errArr => {
-          errArr.forEach(err => toastr.error(err));
-        });
+        if (data.errors) {
+          // Laravel validation errors
+          Object.values(data.errors).forEach(errArr => {
+            errArr.forEach(err => toastr.error(err));
+          });
+        } else if (data.message) {
+          // Custom backend messages (email/username exists)
+          toastr.error(data.message);
+        }
       } else {
         toastr.error(data.message || "Something went wrong.");
       }

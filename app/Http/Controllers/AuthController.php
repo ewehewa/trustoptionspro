@@ -31,19 +31,26 @@ class AuthController extends Controller
                 'email' => 'required|email|max:255',
                 'phone' => 'required|string|max:20',
                 'country' => 'required|string|max:100',
-                'password' => 'required|confirmed|min:6',
+                'password' => [
+                    'required',
+                    'confirmed',
+                    'min:8',
+                    'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/'
+                ],
+            ], [
+                'password.regex' => 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
             ]);
 
-            $existing = User::where('email', $validated['email'])->first();
+            // Check for existing email
+            $existingEmail = User::where('email', $validated['email'])->first();
 
-            if ($existing && !$existing->email_verified_at) {
-                // User exists but not verified
-                $existing->email_otp = rand(100000, 999999);
-                $existing->otp_expires_at = now()->addMinutes(10);
-                $existing->save();
+            if ($existingEmail && !$existingEmail->email_verified_at) {
+                $existingEmail->email_otp = rand(100000, 999999);
+                $existingEmail->otp_expires_at = now()->addMinutes(10);
+                $existingEmail->save();
 
-                Mail::to($existing->email)->send(new EmailVerificationCode($existing->email_otp));
-                session(['pending_email_verification' => $existing->email]);
+                Mail::to($existingEmail->email)->send(new EmailVerificationCode($existingEmail->email_otp));
+                session(['pending_email_verification' => $existingEmail->email]);
 
                 return response()->json([
                     'success' => true,
@@ -52,10 +59,20 @@ class AuthController extends Controller
                 ]);
             }
 
-            if ($existing) {
+            if ($existingEmail) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Email already in use. Please login',
+                ], 422);
+            }
+
+            // Check for existing username
+            $existingUsername = User::where('username', $validated['username'])->first();
+
+            if ($existingUsername) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Username already taken. Please choose another.',
                 ], 422);
             }
 
@@ -68,7 +85,7 @@ class AuthController extends Controller
                 'email' => $validated['email'],
                 'phone' => $validated['phone'],
                 'country' => $validated['country'],
-                'access' => $validated['password'],
+                'access' => $validated['password'], // ⚠️ Do you really need to store raw password in `access`?
                 'password' => Hash::make($validated['password']),
                 'email_otp' => $otp,
                 'otp_expires_at' => now()->addMinutes(10),
@@ -76,8 +93,6 @@ class AuthController extends Controller
 
             Mail::to($user->email)->send(new EmailVerificationCode($otp));
             session(['pending_email_verification' => $user->email]);
-
-            // Mail::to($user->email)->send(new UserRegistered($user));
 
             return response()->json([
                 'success' => true,
@@ -103,6 +118,8 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+
 
 
     public function showLoginForm()
