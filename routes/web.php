@@ -8,6 +8,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ImpersonationController;
 use App\Http\Controllers\Admin\InvestmentPlanController;
 use App\Http\Controllers\Admin\TraderController;
 use App\Http\Controllers\CopiedTraderController;
@@ -116,6 +117,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/traders', [TraderController::class, 'addTrader'])->name('traders.store');
         Route::get('/traders', [TraderController::class, 'fetchTraders'])->name('traders.index');
         Route::delete('/traders/{id}', [TraderController::class, 'deleteTrader'])->name('traders.destroy');
+
+        Route::post('/users/{user}/impersonate', [ImpersonationController::class, 'impersonate'])->name('users.impersonate');
+        Route::post('/admin/impersonate/leave', [ImpersonationController::class, 'leave'])->name('impersonate.leave');
     });
 });
 

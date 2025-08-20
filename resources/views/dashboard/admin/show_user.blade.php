@@ -101,6 +101,15 @@
         <button class="btn-green" onclick="openProfitModal()">Top Up Profit</button>
         <button class="btn-gray" onclick="openOtpModal()">Generate OTP</button>
         <button class="btn-danger" onclick="openDebitModal()">Debit Account</button>
+        <!-- NEW: Login as User Button -->
+      <form method="POST" action="{{ route('admin.users.impersonate', $user->id) }}" class="d-inline impersonate-form">
+          @csrf
+          <button type="submit" class="btn btn-primary impersonate-btn w-100">
+              <span class="default-text">Login as {{ $user->username }}</span>
+              <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              <span class="loading-text d-none"> Redirecting...</span>
+          </button>
+      </form>
       </div>
     </div>
 
@@ -282,6 +291,21 @@
   </div>
 
   <script>
+    document.querySelectorAll('.impersonate-form').forEach(form => {
+        form.addEventListener('submit', function () {
+            let btn = this.querySelector('.impersonate-btn');
+
+            // Disable the button
+            btn.disabled = true;
+
+            // Hide normal text, show spinner + loading text
+            btn.querySelector('.default-text').classList.add('d-none');
+            btn.querySelector('.spinner-border').classList.remove('d-none');
+            btn.querySelector('.loading-text').classList.remove('d-none');
+        });
+    });
+  
+
     function openProfitModal() {
       document.getElementById('profitModal').style.display = 'flex';
     }
