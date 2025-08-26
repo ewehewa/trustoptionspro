@@ -87,8 +87,8 @@
           <div class="col-6 mb-3">
             <div class="stat-card">
               <div class="stat-content">
-                <div class="stat-label">REFERRAL BONUS</div>
-                <div class="stat-value">$0.00</div>
+                <div class="stat-label">BONUS</div>
+                <div class="stat-value">${{ number_format($totalBonus, 2) }}</div>
               </div>
               <div class="stat-icon bg-orange">
                 <i class="fas fa-gift"></i>

@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(CopiedTrader::class);
     }
 
+    public function bonuses()
+    {
+        return $this->hasMany(Bonus::class);
+    }
+
 
 
     protected $hidden = [

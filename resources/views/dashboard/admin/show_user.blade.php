@@ -1,5 +1,15 @@
 <x-admin>
   <style>
+  #profitModal, #otpModal, #debitModal, #addBonusModal, #debitProfitModal, #removeBonusModal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
     .card-box {
       background-color: #fff;
       border-radius: 12px;
@@ -96,11 +106,16 @@
       <div><span class="info-label">Balance:</span> <span class="info-value" id="user-balance">${{ number_format($user->balance, 2) }}</span></div>
       <div><span class="info-label">OTP:</span> <span class="info-value" id="otp-value">{{ $user->otp ?? 'None' }}</span></div>
       <div><span class="info-label">Registered:</span> <span class="info-value">{{ $user->created_at->format('d M Y') }}</span></div>
+      {{-- <div><span class="info-label" id="total-profits">Total profits:</span> <span class="info-value">{{ number_format($totalProfits, 2) }}</span></div>
+      <div><span class="info-label" id="total-bonus">Total Bonus:</span> <span class="info-value">{{ number_format($totalBonuses, 2) }}</span></div> --}}
 
       <div class="action-buttons mt-3">
         <button class="btn-green" onclick="openProfitModal()">Top Up Profit</button>
+        <button class="btn-danger" onclick="openDebitProfitModal()">Debit Profit</button>
         <button class="btn-gray" onclick="openOtpModal()">Generate OTP</button>
-        <button class="btn-danger" onclick="openDebitModal()">Debit Account</button>
+        {{-- <button class="btn-danger" onclick="openDebitModal()">Debit Balance</button> --}}
+        <button class="btn-green" onclick="openAddBonusModal()">Add Bonus</button>
+        <button class="btn-danger" onclick="openRemoveBonusModal()">Debit Bonus</button>
         <!-- NEW: Login as User Button -->
       <form method="POST" action="{{ route('admin.users.impersonate', $user->id) }}" class="d-inline impersonate-form">
           @csrf
@@ -265,6 +280,18 @@
       </div>
     </div>
 
+    <!-- DEBIT PROFIT MODAL -->
+    <div id="debitProfitModal">
+      <div class="modal-box">
+        <h5>Debit Profit</h5>
+        <input type="number" id="debitProfitAmount" class="form-control" placeholder="Enter profit debit amount">
+        <div class="mt-3 d-flex justify-content-end gap-2">
+          <button class="btn btn-secondary" onclick="closeDebitProfitModal()">Cancel</button>
+          <button class="btn btn-danger" onclick="submitProfitDebit({{ $user->id }})">Debit Profit</button>
+        </div>
+      </div>
+    </div>
+
     <!-- OTP MODAL -->
     <div id="otpModal">
       <div class="modal-box">
@@ -289,6 +316,31 @@
       </div>
     </div>
   </div>
+
+  <!-- ADD BONUS MODAL -->
+<div id="addBonusModal">
+  <div class="modal-box">
+    <h5>Add Bonus</h5>
+    <input type="number" id="addBonusAmount" class="form-control" placeholder="Enter bonus amount">
+    <div class="mt-3 d-flex justify-content-end gap-2">
+      <button class="btn btn-secondary" onclick="closeAddBonusModal()">Cancel</button>
+      <button class="btn btn-success" onclick="submitAddBonus({{ $user->id }})">Add Bonus</button>
+    </div>
+  </div>
+</div>
+
+<!-- REMOVE BONUS MODAL -->
+<div id="removeBonusModal">
+  <div class="modal-box">
+    <h5>Debit Bonus</h5>
+    <input type="number" id="removeBonusAmount" class="form-control" placeholder="Enter amount to remove">
+    <div class="mt-3 d-flex justify-content-end gap-2">
+      <button class="btn btn-secondary" onclick="closeRemoveBonusModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="submitRemoveBonus({{ $user->id }})">Remove Bonus</button>
+    </div>
+  </div>
+</div>
+
 
   <script>
     document.querySelectorAll('.impersonate-form').forEach(form => {
@@ -315,6 +367,16 @@
       document.getElementById('profitAmount').value = '';
     }
 
+    function openDebitProfitModal() {
+      document.getElementById('debitProfitModal').style.display = 'flex';
+    }
+
+    function closeDebitProfitModal() {
+      document.getElementById('debitProfitModal').style.display = 'none';
+      document.getElementById('debitProfitAmount').value = '';
+    }
+
+
     function openOtpModal() {
       document.getElementById('otpModal').style.display = 'flex';
     }
@@ -332,6 +394,29 @@
       document.getElementById('debitModal').style.display = 'none';
       document.getElementById('debitAmount').value = '';
     }
+
+    // OPEN / CLOSE Bonus Modals
+    function openAddBonusModal() {
+      document.getElementById('addBonusModal').style.display = 'flex';
+    }
+    function closeAddBonusModal() {
+      document.getElementById('addBonusModal').style.display = 'none';
+      document.getElementById('addBonusAmount').value = '';
+    }
+
+    function openRemoveBonusModal() {
+      document.getElementById('removeBonusModal').style.display = 'flex';
+    }
+    function closeRemoveBonusModal() {
+      document.getElementById('removeBonusModal').style.display = 'none';
+      document.getElementById('removeBonusAmount').value = '';
+    }
+
+    function closeDebitProfitModal() {
+      document.getElementById('debitProfitModal').style.display = 'none';
+      document.getElementById('debitProfitAmount').value = '';
+    }
+
 
     function submitProfitTopUp(userId) {
       const amount = parseFloat(document.getElementById('profitAmount').value);
@@ -365,6 +450,40 @@
         btn.innerText = 'Top Up';
       });
     }
+
+    function submitProfitDebit(userId) {
+      const amount = parseFloat(document.getElementById('debitProfitAmount').value);
+      if (!amount || amount <= 0) return toastr.error("Enter a valid debit amount.");
+
+      const btn = document.querySelector('#debitProfitModal .btn-danger');
+      btn.disabled = true;
+      btn.innerText = 'Processing...';
+
+      fetch(`{{ route('admin.debit.profit', ['user' => $user->id]) }}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        },
+        body: JSON.stringify({ amount })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          toastr.success(data.message);
+          document.getElementById('user-balance').textContent = `$${parseFloat(data.new_balance).toFixed(2)}`;
+          closeDebitProfitModal();
+        } else {
+          toastr.error(data.message);
+        }
+      })
+      .catch(() => toastr.error("Something went wrong."))
+      .finally(() => {
+        btn.disabled = false;
+        btn.innerText = 'Debit Profit';
+      });
+    }
+
 
     function submitDebit(userId) {
       const amount = parseFloat(document.getElementById('debitAmount').value);
@@ -461,5 +580,73 @@
         btn.innerText = 'Approve';
       });
     }
+
+    // SUBMIT Add Bonus
+function submitAddBonus(userId) {
+  const amount = parseFloat(document.getElementById('addBonusAmount').value);
+  if (!amount || amount <= 0) return toastr.error("Enter a valid bonus amount.");
+
+  const btn = document.querySelector('#addBonusModal .btn-success');
+  btn.disabled = true;
+  btn.innerText = 'Processing...';
+
+  fetch(`/admin/users/${userId}/bonus`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': '{{ csrf_token() }}',
+    },
+    body: JSON.stringify({ amount })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === 'success') {
+      toastr.success(data.message);
+      document.getElementById('user-balance').textContent = `$${parseFloat(data.new_balance).toFixed(2)}`;
+      closeAddBonusModal();
+    } else {
+      toastr.error(data.message);
+    }
+  })
+  .catch(() => toastr.error("Something went wrong."))
+  .finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Add Bonus';
+  });
+}
+
+// SUBMIT Remove Bonus
+function submitRemoveBonus(userId) {
+  const amount = parseFloat(document.getElementById('removeBonusAmount').value);
+  if (!amount || amount <= 0) return toastr.error("Enter a valid amount.");
+
+  const btn = document.querySelector('#removeBonusModal .btn-danger');
+  btn.disabled = true;
+  btn.innerText = 'Processing...';
+
+  fetch(`/admin/users/${userId}/bonus`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': '{{ csrf_token() }}',
+    },
+    body: JSON.stringify({ amount })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === 'success') {
+      toastr.success(data.message);
+      document.getElementById('user-balance').textContent = `$${parseFloat(data.new_balance).toFixed(2)}`;
+      closeRemoveBonusModal();
+    } else {
+      toastr.error(data.message);
+    }
+  })
+  .catch(() => toastr.error("Something went wrong."))
+  .finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Remove Bonus';
+  });
+}
   </script>
 </x-admin>

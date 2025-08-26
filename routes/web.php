@@ -7,6 +7,7 @@ use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\BonusController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ImpersonationController;
 use App\Http\Controllers\Admin\InvestmentPlanController;
@@ -102,6 +103,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/send-mail', [AdminDashboardController::class, 'sendMail'])->name('mail.send');
 
         Route::post('/users/{user}/topup-profit', [AdminDashboardController::class, 'topUpProfit'])->name('topup.profit');
+        Route::post('/users/{user}/profit/debit', [AdminDashboardController::class, 'debitProfit'])->name('debit.profit');
         Route::post('/users/{user}/debit', [AdminDashboardController::class, 'debitBalance'])->name('debit.balance');
         Route::post('/admin/users/{user}/generate-otp', [AdminDashboardController::class, 'generateOtp'])->name('generate.otp');
 
@@ -120,6 +122,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::post('/users/{user}/impersonate', [ImpersonationController::class, 'impersonate'])->name('users.impersonate');
         Route::post('/admin/impersonate/leave', [ImpersonationController::class, 'leave'])->name('impersonate.leave');
+
+        Route::post('/users/{user}/bonus', [BonusController::class, 'store']);
+        Route::delete('/users/{user}/bonus', [BonusController::class, 'destroy']);
     });
 });
 

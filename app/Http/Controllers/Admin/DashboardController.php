@@ -46,26 +46,30 @@ class DashboardController extends Controller
     }
 
     public function showUser($id)
-{
-    $user = User::with([
-        'deposits' => function ($q) {
-            $q->latest();
-        },
-        'withdrawals' => function ($q) {
-            $q->latest();
-        },
-        'investments' => function ($q) {
-            $q->latest();
-        },
-        'investments.plan',
-        'copiedTraders' => function ($q) {   // <-- add this
-            $q->latest();
-        },
-        'copiedTraders.trader', // eager load trader details
-    ])->findOrFail($id);
+    {
+        $user = User::with([
+            'deposits' => function ($q) {
+                $q->latest();
+            },
+            'withdrawals' => function ($q) {
+                $q->latest();
+            },
+            'investments' => function ($q) {
+                $q->latest();
+            },
+            'investments.plan',
+            'copiedTraders' => function ($q) {   // <-- add this
+                $q->latest();
+            },
+            'copiedTraders.trader', // eager load trader details
+        ])->findOrFail($id);
 
-    return view('dashboard.admin.show_user', compact('user'));
-}
+        // calculate totals
+    $totalProfits = $user->profits()->sum('amount');
+    $totalBonuses = $user->bonuses()->sum('amount');
+
+        return view('dashboard.admin.show_user', compact('user', 'totalProfits', 'totalBonuses'));
+    }
 
 
     public function deleteUser($id)
@@ -147,6 +151,41 @@ class DashboardController extends Controller
             'success' => true,
             'message' => 'Profit topped up successfully.',
             'new_balance' => $user->balance,
+        ]);
+    }
+
+    public function debitProfit(Request $request, User $user)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+        ]);
+
+        $amount = $request->amount;
+
+        // Calculate total profit balance for user
+        $profitBalance = Profit::where('user_id', $user->id)->sum('amount');
+
+        if ($profitBalance < $amount) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Insufficient profit balance to debit.',
+            ], 400);
+        }
+
+        // Record the debit as a negative profit entry
+        Profit::create([
+            'user_id' => $user->id,
+            'amount' => -$amount,
+        ]);
+
+        // Also reduce the user’s overall balance
+        $user->decrement('balance', $amount);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Profit debited successfully.',
+            'new_profit_balance' => Profit::where('user_id', $user->id)->sum('amount'),
+            'new_user_balance' => $user->balance,
         ]);
     }
 

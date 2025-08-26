@@ -12,7 +12,9 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('dashboard.user.index', compact('user'));
+        $totalBonus = $user->bonuses()->sum('amount');
+
+        return view('dashboard.user.index', compact('user', 'totalBonus'));
     }
 
     public function showProfile()
