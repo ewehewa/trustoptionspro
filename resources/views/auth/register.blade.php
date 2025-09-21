@@ -1,36 +1,116 @@
 <x-auth>
-<div class="card signup-card p-4">
-  <div class="d-flex justify-content-center py-2">
-    <a href="{{ url('/') }}" class="text-decoration-none">
-      <img src="{{ asset('assets/img/appicon.png') }}" width="140" height="40">
-    </a> 
-  </div>
-  <h5 class="text-center text-secondary mb-4">Create a Free Account</h5>
+  <style>
+    body {
+      background: #0b0b2a; /* Dark navy background */
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
 
-  <form id="registerForm">
-    <div class="mb-3">
-      <label class="form-label">Full Name</label>
-      <input type="text" name="name" class="form-control" required>
+    .signup-card {
+      background: #111133;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+      color: #fff;
+    }
+
+    h5 {
+      background: linear-gradient(90deg, #a855f7, #ec4899, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+    }
+
+    .form-label {
+      color: #cfcfe0;
+      font-weight: 500;
+    }
+
+    /* White input fields */
+    .form-control,
+    .form-select {
+      background: #fff !important;
+      border: 1px solid #ccc;
+      color: #000 !important;
+      border-radius: 8px;
+    }
+    .form-control:focus,
+    .form-select:focus {
+      background: #fff !important;
+      color: #000 !important;
+      border-color: #a855f7;
+      box-shadow: 0 0 0 0.25rem rgba(168, 85, 247, 0.25);
+    }
+
+    .input-group-text {
+      background: #1a1a3a;
+      border: 1px solid #2d2d4d;
+      cursor: pointer;
+      color: #bbb;
+    }
+
+    /* Gradient button */
+    .btn-purple {
+      background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #f97316);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .btn-purple:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Login link */
+    .text-muted a {
+      color: #a855f7 !important;
+      font-weight: 500;
+    }
+    .text-muted a:hover {
+      text-decoration: underline;
+    }
+
+    /* Force dropdown menu to open downward */
+    .dropdown-menu {
+      top: 100% !important;
+      bottom: auto !important;
+    }
+  </style>
+
+  <div class="card signup-card p-4">
+    <div class="d-flex justify-content-center py-2">
+      <a href="{{ url('/') }}" class="text-decoration-none">
+        <img src="{{ asset('assets1/img/logo.png') }}" width="60" height="60">
+      </a>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Username</label>
-      <input type="text" name="username" class="form-control" required>
-    </div>
+    <h5 class="text-center mb-4">Create a Free Account</h5>
 
-    <div class="mb-3">
-      <label class="form-label">Email Address</label>
-      <input type="email" name="email" class="form-control" required>
-    </div>
+    <form id="registerForm">
+      <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Phone Number</label>
-      <input type="tel" name="phone" class="form-control" required>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" required>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Country</label>
-      <select name="country" class="form-select" required>
+      <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <input type="email" name="email" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" name="phone" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Country</label>
+        <select name="country" class="form-select" required>
         <option selected disabled>Select Country</option>
         <option value="Afghanistan">Afghanistan</option>
         <option value="Albania">Albania</option>
@@ -227,108 +307,106 @@
         <option value="Zambia">Zambia</option>
         <option value="Zimbabwe">Zimbabwe</option>
       </select>
-    </div>
-
-    <!-- Passwords -->
-    <div class="mb-3">
-      <label class="form-label">Password</label>
-      <div class="input-group">
-        <input type="password" name="password" id="password" class="form-control" required minlength="6">
-        <span class="input-group-text" onclick="togglePassword('password', this)">
-          <i class="fas fa-eye"></i>
-        </span>
       </div>
-    </div>
 
-    <div class="mb-3">
-      <label class="form-label">Confirm Password</label>
-      <div class="input-group">
-        <input type="password" name="password_confirmation" id="confirm_password" class="form-control" required>
-        <span class="input-group-text" onclick="togglePassword('confirm_password', this)">
-          <i class="fas fa-eye"></i>
-        </span>
+      <!-- Passwords -->
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <div class="input-group">
+          <input type="password" name="password" id="password" class="form-control" required minlength="6">
+          <span class="input-group-text" onclick="togglePassword('password', this)">
+            <i class="fas fa-eye"></i>
+          </span>
+        </div>
       </div>
-    </div>
 
-    <!-- Submit -->
-    <div class="d-grid mb-3">
-      <button type="submit" class="btn btn-purple" id="signupBtn">
-        <span id="signupBtnText">Signup</span>
-        <span id="signupLoader" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
-      </button>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Confirm Password</label>
+        <div class="input-group">
+          <input type="password" name="password_confirmation" id="confirm_password" class="form-control" required>
+          <span class="input-group-text" onclick="togglePassword('confirm_password', this)">
+            <i class="fas fa-eye"></i>
+          </span>
+        </div>
+      </div>
 
-    <p class="text-center text-muted small">
-      Already have an account? <a href="{{ route('show.login') }}" class="text-decoration-none">Login here</a>
-    </p>
-  </form>
-</div>
+      <!-- Submit -->
+      <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-purple" id="signupBtn">
+          <span id="signupBtnText">Signup</span>
+          <span id="signupLoader" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
 
-<script>
-  function togglePassword(fieldId, el) {
-    const field = document.getElementById(fieldId);
-    const icon = el.querySelector('i');
-    if (field.type === 'password') {
-      field.type = 'text';
-      icon.classList.remove('fa-eye');
-      icon.classList.add('fa-eye-slash');
-    } else {
-      field.type = 'password';
-      icon.classList.remove('fa-eye-slash');
-      icon.classList.add('fa-eye');
-    }
-  }
+      <p class="text-center text-light small">
+        Already have an account? <a href="{{ route('show.login') }}" class="text-decoration-none">Login here</a>
+      </p>
+    </form>
+  </div>
 
-  document.getElementById('registerForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const form = e.target;
-    const formData = new FormData(form);
-    const signupBtn = document.getElementById('signupBtn');
-    const signupBtnText = document.getElementById('signupBtnText');
-    const signupLoader = document.getElementById('signupLoader');
-
-    signupBtn.classList.add('btn-purple.loading');
-    signupBtn.disabled = true;
-    signupBtnText.textContent = 'Processing...';
-    signupLoader.classList.remove('d-none');
-
-    try {
-      const res = await fetch("{{ route('register') }}", {
-        method: "POST",
-        headers: {
-          'X-CSRF-TOKEN': '{{ csrf_token() }}',
-          'Accept': 'application/json'
-        },
-        body: formData
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        toastr.success(data.message);
-        window.location.href = data.redirect;
-      } else if (res.status === 422) {
-        if (data.errors) {
-          // Laravel validation errors
-          Object.values(data.errors).forEach(errArr => {
-            errArr.forEach(err => toastr.error(err));
-          });
-        } else if (data.message) {
-          // Custom backend messages (email/username exists)
-          toastr.error(data.message);
-        }
+  <script>
+    function togglePassword(fieldId, el) {
+      const field = document.getElementById(fieldId);
+      const icon = el.querySelector('i');
+      if (field.type === 'password') {
+        field.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
       } else {
-        toastr.error(data.message || "Something went wrong.");
+        field.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
       }
-    } catch (err) {
-      toastr.error("Network error.");
-    } finally {
-      signupBtn.classList.remove('btn-purple.loading');
-      signupBtn.disabled = false;
-      signupBtnText.textContent = 'Signup';
-      signupLoader.classList.add('d-none');
     }
-  });
-</script>
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+      const signupBtn = document.getElementById('signupBtn');
+      const signupBtnText = document.getElementById('signupBtnText');
+      const signupLoader = document.getElementById('signupLoader');
+
+      signupBtn.classList.add('loading');
+      signupBtn.disabled = true;
+      signupBtnText.textContent = 'Processing...';
+      signupLoader.classList.remove('d-none');
+
+      try {
+        const res = await fetch("{{ route('register') }}", {
+          method: "POST",
+          headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+          },
+          body: formData
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          toastr.success(data.message);
+          window.location.href = data.redirect;
+        } else if (res.status === 422) {
+          if (data.errors) {
+            Object.values(data.errors).forEach(errArr => {
+              errArr.forEach(err => toastr.error(err));
+            });
+          } else if (data.message) {
+            toastr.error(data.message);
+          }
+        } else {
+          toastr.error(data.message || "Something went wrong.");
+        }
+      } catch (err) {
+        toastr.error("Network error.");
+      } finally {
+        signupBtn.classList.remove('loading');
+        signupBtn.disabled = false;
+        signupBtnText.textContent = 'Signup';
+        signupLoader.classList.add('d-none');
+      }
+    });
+  </script>
 </x-auth>

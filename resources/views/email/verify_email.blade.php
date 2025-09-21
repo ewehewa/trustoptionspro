@@ -11,7 +11,7 @@
     <h2 style="color: #333333; font-weight: 600; margin-bottom: 20px;">Hi there,</h2>
 
     <p style="font-size: 16px; color: #555555; margin-bottom: 20px;">
-      Thank you for signing up with TrustNetX! Please use the code below to verify your email address:
+      Thank you for signing up with Trust Options Pro! Please use the code below to verify your email address:
     </p>
 
     <div style="text-align: center; margin: 30px 0;">

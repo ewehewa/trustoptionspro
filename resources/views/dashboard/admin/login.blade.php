@@ -62,7 +62,7 @@
 
   <div class="container py-5">
     <div class="card signup-card p-4">
-      <h3 class="text-center mb-4 brand-name">TrustNetX</h3>
+      <h3 class="text-center mb-4 brand-name">Trust Options Pro</h3>
       <h5 class="text-center text-secondary mb-4">Admin Control Panel</h5>
       <form id="loginForm">
         <div class="mb-3">

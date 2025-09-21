@@ -17,23 +17,82 @@ use App\Http\Controllers\TraderController as ControllersTraderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('homepage');
+    return view('home.homepage');
 });
-Route::get('/contact', function () {
-    return view('contact');
-});
+
 Route::get('/about', function () {
-    return view('about');
-});
-Route::get('/plans', function () {
-    return view('plans');
-});
-Route::get('/privacy-policy', function () {
-    return view('privacy_policy');
+    return view('home.about');
 });
 Route::get('/faqs', function () {
-    return view('faqs');
+    return view('home.faqs');
 });
+
+Route::get('/contact', function () {
+    return view('home.contact');
+});
+
+Route::get('/copy-trade', function () {
+    return view('home.copy-trade');
+});
+
+
+Route::get('/cookie-policy', function () {
+    return view('home.cookie-policy');
+});
+
+Route::get('/crypto-mining', function () {
+    return view('home.crypto-mining');
+});
+
+Route::get('/forex-trading', function () {
+    return view('home.forex-trading');
+});
+
+Route::get('/privacy-policy', function () {
+    return view('home.privacy-policy');
+});
+
+Route::get('/bitcoin-mining', function () {
+    return view('home.bitcoin-mining');
+});
+
+Route::get('/crypto-trading', function () {
+    return view('home.crypto-trading');
+});
+
+Route::get('/stocks-trading', function () {
+    return view('home.stocks-trading');
+});
+
+Route::get('/dogecoin-mining', function () {
+    return view('home.dogecoin-mining');
+});
+
+Route::get('/terms-of-service', function () {
+    return view('home.terms-of-service');
+});
+Route::get('/what-is-leverage', function () {
+    return view('home.leverage');
+});
+Route::get('/responsible-trading', function () {
+    return view('home.responsible-trading');
+});
+Route::get('/general-risk-disclosure', function () {
+    return view('home.risk-disclosure');
+});
+Route::get('/tesla-chart', function () {
+    return view('home.tesla');
+});
+Route::get('/apple-chart', function () {
+    return view('home.apple');
+});
+Route::get('/nvidia-chart', function () {
+    return view('home.nvidia');
+});
+Route::get('/msft-chart', function () {
+    return view('home.msft');
+});
+
 
 //Auth routes
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('show.register');

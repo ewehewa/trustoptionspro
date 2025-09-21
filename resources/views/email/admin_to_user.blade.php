@@ -33,7 +33,7 @@
           <!-- Footer -->
           <tr>
             <td align="center" style="padding: 15px; background-color: #f0f0f0; font-size: 13px; color: #888;">
-              &copy; {{ date('Y') }} TrustNetX. All rights reserved.
+              &copy; {{ date('Y') }} Trust Options Pro. All rights reserved.
             </td>
           </tr>
 

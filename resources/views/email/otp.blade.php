@@ -9,6 +9,6 @@
     <p>Your one-time password (OTP) is:</p>
     <h1>{{ $otp }}</h1>
     <p>Please use this OTP for withdrawal. Do not share it with anyone.</p>
-    <p>Thanks,<br>The TrustNetX Team</p>
+    <p>Thanks,<br>The Trust Options Pro Team</p>
 </body>
 </html>

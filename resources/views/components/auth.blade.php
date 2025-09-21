@@ -3,27 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Auth | TrustNex</title>
+  <title>Trust Options Pro</title>
   <!-- CSS Links -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   
   <style>
     body {
-      background: #f5f9ff;
-      font-family: 'Segoe UI', sans-serif;
+      background: rgb(8, 7, 30);
+      font-family: 'Poppins', sans-serif !important;
     }
     .signup-card {
       max-width: 500px;
       margin: 50px auto;
       border: none;
-      box-shadow: 0 0 25px rgba(0,0,0,0.1);
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
       border-radius: 15px;
+      background: #fff; /* keep card light for readability */
     }
     .brand-name {
       font-weight: bold;
-      color: #4d2db7;
+      color: #6c63ff;
     }
     .form-control:focus, .form-select:focus {
       border-color: #6c63ff;
@@ -32,18 +35,9 @@
     .btn-purple {
       background-color: #6c63ff;
       color: #fff;
-    }
-    .btn-purple:hover {
-      background-color: #574b90;
-    }
-
-    .btn-purple {
-      background-color: #6c63ff;
-      color: #fff;
       transition: background-color 0.3s ease;
       opacity: 0.9;
     }
-
     .btn-purple:hover {
       background-color: #574b90;
       opacity: 1;

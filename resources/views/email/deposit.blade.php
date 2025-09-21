@@ -11,6 +11,6 @@
   <p>We'll notify you once it’s reviewed.</p>
 
   <br>
-  <p>Thank you,<br>TrustNetX Team</p>
+  <p>Thank you,<br>Trust Options Pro Team</p>
 </body>
 </html>
