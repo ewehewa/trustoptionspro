@@ -1,1 +1,1 @@
-## Tustnet web app
+## Trust Options Pro web application
