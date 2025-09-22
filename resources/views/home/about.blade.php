@@ -18,16 +18,6 @@
                 feature empowers you to make informed decisions with ease.
             </p>
 
-            <h5 class="about-section-title">Stock Trading:</h5>
-            <p class="about-section-text">
-                Dive into the world of stocks with confidence using our intuitive trading platform. Whether you're
-                interested in blue-chip companies, emerging growth stocks, or niche sectors, our platform provides
-                access to a wide range of equities from global markets. With advanced charting tools, real-time market
-                data, and comprehensive analysis, you can stay ahead of market trends and make informed trading
-                decisions. Our platform caters to traders of all levels, offering seamless execution and customizable
-                features to suit your individual trading style.
-            </p>
-
             <h5 class="about-section-title">Crypto Trading:</h5>
             <p class="about-section-text">
                 Experience the excitement of cryptocurrency trading on our platform. From Bitcoin to altcoins, we offer
@@ -38,26 +28,6 @@
                 precision.
             </p>
 
-            <h5 class="about-section-title">Forex Trading:</h5>
-            <p class="about-section-text">
-                Unlock the potential of the largest financial market in the world with our forex trading capabilities.
-                Whether you're trading major currency pairs, exotics, or cross-currency options, our platform equips you
-                with the tools and resources to trade forex with confidence. With advanced charting tools, technical
-                analysis, and risk management features, you can navigate the complexities of the forex market with ease.
-                Our platform is designed to empower traders of all levels, from beginners to experienced professionals,
-                to capitalize on forex opportunities and achieve their financial goals.
-
-            </p>
-
-            <h5 class="about-section-title">Forex Trading:</h5>
-            <p class="about-section-text">
-                Unlock the potential of the largest financial market in the world with our forex trading capabilities.
-                Whether you're trading major currency pairs, exotics, or cross-currency options, our platform equips you
-                with the tools and resources to trade forex with confidence. With advanced charting tools, technical
-                analysis, and risk management features, you can navigate the complexities of the forex market with ease.
-                Our platform is designed to empower traders of all levels, from beginners to experienced professionals,
-                to capitalize on forex opportunities and achieve their financial goals.
-            </p>
 
             <h5 class="about-section-title">Forex Trading:</h5>
             <p class="about-section-text">
