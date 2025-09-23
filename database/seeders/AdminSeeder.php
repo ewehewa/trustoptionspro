@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
         Admin::updateOrCreate(
             [
                 'name' => 'Admin',
-                'email' => 'support@trustoptionspro.com',
+                'email' => 'support@trustoptionspro.cc',
                 'password' => Hash::make('trustourpasswordbro'),
             ]
         );
